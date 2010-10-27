@@ -21,24 +21,24 @@ STEP 2: JAVA code to access the LDAP
 
 Use code similar to the following to access the LDAP:
 
-		#!java
-		try {
-			Context initCtx = new InitialContext();
-			DirContext ctx = (DirContext) initCtx.lookup("myLDAP");
+	
+	try {
+		Context initCtx = new InitialContext();
+		DirContext ctx = (DirContext) initCtx.lookup("myLDAP");
 
-			SearchControls ctls = new SearchControls();
-			ctls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+		SearchControls ctls = new SearchControls();
+		ctls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 
-			String searchfilter = "(mail="+ email +")";
-			NamingEnumeration answer = ctx.search("", searchfilter, ctls);
+		String searchfilter = "(mail="+ email +")";
+		NamingEnumeration answer = ctx.search("", searchfilter, ctls);
 
-			if(answer.hasMore()) {
-				SearchResult entry = (SearchResult) answer.next();
-				Attributes attrs = entry.getAttributes(); 
-				......
-			} else {
-				success = false;
-			}
-		} catch (NamingException e) {
-			e.printStackTrace();
+		if(answer.hasMore()) {
+			SearchResult entry = (SearchResult) answer.next();
+			Attributes attrs = entry.getAttributes(); 
+			......
+		} else {
+			success = false;
 		}
+	} catch (NamingException e) {
+		e.printStackTrace();
+	}
